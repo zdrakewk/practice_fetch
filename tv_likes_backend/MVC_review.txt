@@ -1,0 +1,20 @@
+Rails 
+
+rails g model Program title description likes:integer
+  ~> makes the models & migration
+
+rails g resource Program title description likes:integer
+  ~> makes the models, migration, controller (skeleton) & routes (7 restful Routes)
+
+rails g scaffold Program title description likes:integer
+ ~> makes the models, migration, controller (NOT a skeleton) & routes (7 restful Routes)
+
+rails g migration AddColumnProgramIdToCharacters program_id:interger
+ ~> makes your custom/editable migration
+
+rails g controller Programs #pass actions
+  ~> makes controller files, where actions live
+
+
+##actions 
+New / Create | Edit / Update | Show | Index | Destroy 
