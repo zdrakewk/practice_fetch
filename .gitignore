@@ -30,3 +30,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /tv_likes_backend/config/master.key
+
+# Ignore test files.
+/tv_likes_backend/test/*
