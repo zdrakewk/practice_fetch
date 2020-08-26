@@ -1,12 +1,13 @@
-class Show {
-  static all_shows = []
+class Program {
+  static all_programs = []
   // class & instance method
-  constructor(title, description) {
+  constructor(title, description, likes=0) {
     // this the the new obj
     this.title = title
     this.description = description
+    this.likes = likes
     // console.log(this + `inside constructor`)
-    Show.all_shows.push(this)
+    Program.all_programs.push(this)
   }
 
   static formatShows(){

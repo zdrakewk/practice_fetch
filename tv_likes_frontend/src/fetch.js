@@ -13,3 +13,13 @@ function getPrograms() {
     console.log(prgArr)
   })
 }
+
+function createProgramAndAddCharacter(event) {
+  // send a post request to Rails, create a program & associate a new character
+  // e.preventDefault()
+  const title = event.target.dataset.title
+  const selectedLI = document.getElementById(title)
+  const forms = selectedLI.getElementsByTagName('form')[0]
+
+  debugger
+}

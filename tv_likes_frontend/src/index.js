@@ -1,67 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // alert('I am here')
-  // console.log(e)
-  // getShows('girls')
-  getPrograms()
+  // input type submit
+  document.getElementsByTagName('form')[0].addEventListener('submit', getShows)
+
+  // document.getElementsByTagName('form')[0].addEventListener('submit', () => { 
+  //   const inputWord = e.target.value
+  //   getShows(e, inputWord)
+  // })
+
+  // button tage submit
+  // document.getElementsByTagName('button')[0].addEventListener('click', (event) =>{
+  //   event.preventDefault()
+  //   console.log('button was clicked')
+  // })
 })
 
-
-// () => {} // arrow fn
-// document.addEventListener('DomContentLoaded', getShows)
-
-
 // get shows with the name of girls
-function getShows(query) {
+function getShows(event) {
+  event.preventDefault()
+  const query = document.getElementById("queryInput").value
+
   fetch(`http://api.tvmaze.com/search/shows?q=${query}`)// P1
-    .then(function(resp) { // Wks w/P1
-      // console.log(1)
-      return resp.json() // P2
+    .then(function(resp) { 
+      return resp.json()
     })
-    .then(function(arrObjs) { // Wks w/P2
-      // turn response into JS obj
-      console.log(arrObjs)
-      // debugger;
+    .then(function(arrObjs) { 
       arrObjs.forEach(function(obj) {
         const title = obj.show.name
         const description = obj.show.summary
 
-        new Show(title, description)
+        new Program(title, description)
       });
-
-      displayShows()
-      // for (const obj of arrObjs) {
-      //   const title = obj.show.name
-      //   const description = obj.show.summary
-
-      //   new Show(title, description)
-      // }
-
-      // for (let index = 0; index < arrObjs.length; index++) {
-      //   // debugger
-      //   const title = arrObjs[index].show.name
-      //   const description = arrObjs[index].show.summary
-      //   new Show(title, description)
-      // }
+      displayPrograms()
     })
-    // console.log(3)
 }
-// display the pulled show objs
 
-function displayShows(){
-  // console.log('in displayShows fn')
-  // DOM MANI!!
-  // 1) get/create an anchor
-  // empty body of all txt
-  // document.body.innerText = ''
+function displayPrograms(){
+ 
   const ul = document.createElement('ul')
-  // 2) mani data
-  Show.all_shows.forEach(function(obj){
-    // ul.innerHTML += `<li>`Title: ${obj.title}`</li>`
+
+  Program.all_programs.forEach(function(obj){
     const li = document.createElement('li')
     li.innerText = `Title: ${obj.title}`
-    ul.appendChild(li)
+    li.id = obj.title
+
+    const span = document.createElement('span')
+
+    const button = document.createElement('button')
     // debugger
+    button.addEventListener('click', () => {
+      const dForm = dynamicForm(obj)
+
+      span.appendChild(dForm)
+    })
+
+    button.innerText = 'Add A Character'
+
+   
+    li.appendChild(button)
+    li.appendChild(span)
+    
+    ul.appendChild(li)
   })
-  // 3) add to the dom
   document.getElementsByTagName('main')[0].appendChild(ul)
+}
+
+function dynamicForm(programObj) {
+  const form = document.createElement('form')
+  
+  const label = document.createElement('label')
+  label.innerText = 'Add Character Name'
+
+  const input = document.createElement('input')
+  input.name = 'characterName'
+  input.value = ''
+
+  const formButton = document.createElement('input')
+  formButton.type = 'submit'
+  formButton.value = 'Submit Character'
+  formButton.setAttribute('data-title', programObj.title)
+
+  formButton.addEventListener('click', createProgramAndAddCharacter)
+
+
+  // formButton.addEventListener('submit', createProgramAndAddCharacter)
+
+  form.append(label)
+  form.append(input)
+  form.append(formButton)
+
+  return form
 }
