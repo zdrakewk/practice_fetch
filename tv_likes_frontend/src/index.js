@@ -1,19 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // input type submit
-  document.getElementsByTagName('form')[0].addEventListener('submit', getShows)
-
-  // document.getElementsByTagName('form')[0].addEventListener('submit', () => { 
-  //   const inputWord = e.target.value
-  //   getShows(e, inputWord)
-  // })
-
-  // button tage submit
-  // document.getElementsByTagName('button')[0].addEventListener('click', (event) =>{
-  //   event.preventDefault()
-  //   console.log('button was clicked')
-  // })
-})
-
 // get shows with the name of girls
 function getShows(event) {
   event.preventDefault()
@@ -66,7 +50,8 @@ function displayPrograms(){
 
 function dynamicForm(programObj) {
   const form = document.createElement('form')
-  
+
+  form.setAttribute('class', 'addCharacter')
   const label = document.createElement('label')
   label.innerText = 'Add Character Name'
 
@@ -78,12 +63,8 @@ function dynamicForm(programObj) {
   formButton.type = 'submit'
   formButton.value = 'Submit Character'
   formButton.setAttribute('data-title', programObj.title)
-
-  formButton.addEventListener('click', createProgramAndAddCharacter)
-
-
-  // formButton.addEventListener('submit', createProgramAndAddCharacter)
-
+  formButton.setAttribute('name', 'charSubmitBtn')
+  
   form.append(label)
   form.append(input)
   form.append(formButton)

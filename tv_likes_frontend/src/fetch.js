@@ -14,12 +14,25 @@ function getPrograms() {
   })
 }
 
-function createProgramAndAddCharacter(event) {
+function createProgramAndAddCharacter(configBod) {
   // send a post request to Rails, create a program & associate a new character
-  // e.preventDefault()
-  const title = event.target.dataset.title
-  const selectedLI = document.getElementById(title)
-  const forms = selectedLI.getElementsByTagName('form')[0]
+  // request is a POST, need 2 send a config obj
+   fetch(BASE_URL + 'programs',{
+     method: 'POST',
+     headers: {
+      'content-type': 'application/json'
+     },
+     body: JSON.stringify(configBod)
+   })
+   .then(resp => resp.json())
+   .then(data => {
+     console.log(data)
+   })
 
-  debugger
+  // debugger 
+  
+  
+  // const selectedLI = document.getElementById(title)
+  // const forms = selectedLI.getElementsByTagName('form')[0]
+
 }

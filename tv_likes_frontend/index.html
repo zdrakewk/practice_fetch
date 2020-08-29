@@ -2,20 +2,24 @@
 <html lang="en">
 <head>
   <title>Practice Fetch() </title>
-  <script type="text/javascript" src="src/fetch.js"></script>
-  <script type="text/javascript" src="src/program.js"></script>
-  <script type="text/javascript" src="src/index.js"></script>
 </head>
 
 <body>
   <main>
-    <form>
+    <form class='findPrograms' id='test1'>
       <h3>Search for Your Favorite TV Programs Here!</h3>
       <label>Input a Word in the program title: </label>
-      <input data-test='newDataSetWord' id='queryInput' type='text' value=''/>
+      <input data-test='newDataSetWord' id='queryInput' type='text' name='query'/>
       <input type='submit' value='Search for Program' />
       <!-- <button>Submit</button> -->
     </form>
   </main>
+
+
+
+  <script type="text/javascript" src="src/listeners.js"></script>
+  <script type="text/javascript" src="src/program.js"></script>
+  <script type="text/javascript" src="src/fetch.js"></script>
+  <script type="text/javascript" src="src/index.js"></script>
 </body>
 </html>
