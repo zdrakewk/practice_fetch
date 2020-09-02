@@ -34,6 +34,27 @@ class Program {
     // debugger
     createProgramAndAddCharacter(configBodyObj)
   }
+
+  updateAttributes(newInfo){
+    this.id = newInfo.id // add ruby ID
+    this.characters = [] // give prg obj collect of chars
+    // add char objs 2 prg collection
+    newInfo.characters.forEach((char) => {
+      let charObj = Character.findCharacter(char)
+      // (charObj) ? charObj  : charObj = new Character(char, this)
+
+      if (charObj) {
+        charObj
+      } else {
+        charObj = new Character(char, this)
+      }
+
+      this.characters.push(charObj)
+    })
+
+    debugger
+
+  }
 }
 
 // Show.all_shows = []
