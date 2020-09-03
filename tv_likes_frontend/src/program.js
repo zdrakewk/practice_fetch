@@ -10,12 +10,15 @@ class Program {
     Program.all_programs.push(this)
   }
 
-  static findProgram(pName) {
-    return (this.all_programs.find(obj => {return obj.title === pName}))
+  static findProgram(attr, attrVal) {
+    return (this.all_programs.find(obj => {return obj[attr] === attrVal}))
   }
 
-  static formatShows(){
-    console.log('info')
+  static filterShows(title_keyword){
+    return this.all_programs.filter(obj => {
+      // debugger
+      return obj.title.toLowerCase().includes(title_keyword.toLowerCase())
+    })
   }
 
 
@@ -26,7 +29,7 @@ class Program {
     const form = event.target.elements
     const charName = form.characterName.value
     const title = form.charSubmitBtn.dataset.title
-    const pObjJS =  Program.findProgram(title)
+    const pObjJS =  Program.findProgram('title', title)
 
     const configBodyObj = {}
     configBodyObj.program = pObjJS
@@ -52,8 +55,23 @@ class Program {
       this.characters.push(charObj)
     })
 
-    debugger
+    this.makeProgamTitleALink()
+  }
 
+  makeProgamTitleALink() {
+    const domElement = document.getElementById(this.title)
+    const a = document.createElement('a')
+    a.id = 'displayProgramCharacters'
+    a.setAttribute('data-programID', this.id)
+    a.setAttribute('href', '')
+    a.innerText = this.title
+    domElement.innerText = ''
+    domElement.appendChild(a)
+    // debugger
+  }
+
+  displayProgramCharacters() {
+    debugger
   }
 }
 

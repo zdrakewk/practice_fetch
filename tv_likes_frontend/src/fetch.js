@@ -27,7 +27,7 @@ function createProgramAndAddCharacter(configBod) {
    .then(resp => resp.json())
    .then(data => {
     //  console.log(data)
-    const pObj = Program.findProgram(data.title)
+    const pObj = Program.findProgram('title', data.title)
 
     pObj.updateAttributes(data)
    })

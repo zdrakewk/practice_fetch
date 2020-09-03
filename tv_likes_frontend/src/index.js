@@ -12,20 +12,45 @@ function getShows(event) {
         const title = obj.show.name
         const description = obj.show.summary
 
-        new Program(title, description)
+        if (Program.findProgram('title', title) == undefined) {
+          new Program(title, description)
+        }
       });
-      displayPrograms()
+
+      if (document.getElementById('displayAllPrograms') == null) {
+        const btn = document.createElement('button')
+        btn.id = 'displayAllPrograms'  
+        btn.innerText = 'View All Searched Programs'
+        document.getElementById('findPrograms').after(btn)
+      }
+      
+      // console.log(Program.all_programs)
+      displayPrograms(query)
     })
 }
 
-function displayPrograms(){
+function displayPrograms(searchWord){
+ let ul = document.getElementById('programContainer')
+ let list;
  
-  const ul = document.createElement('ul')
+ if (ul == null) {
+    ul = document.createElement('ul')
+    ul.id = 'programContainer'
+  } else {
+    ul.innerHTML = ''
+  }
 
-  Program.all_programs.forEach(function(obj){
+  if (searchWord == 'all') {
+    list = Program.all_programs
+  } else {
+    list = Program.filterShows(searchWord)
+  }
+
+  list.forEach(function(obj){
     const li = document.createElement('li')
-    li.innerText = `Title: ${obj.title}`
-    li.id = obj.title
+    const b = document.createElement('b')
+    b.innerText = `Title: ${obj.title}`
+    b.id = obj.title
 
     const span = document.createElement('span')
 
@@ -39,7 +64,7 @@ function displayPrograms(){
 
     button.innerText = 'Add A Character'
 
-   
+    li.appendChild(b)
     li.appendChild(button)
     li.appendChild(span)
     
@@ -51,7 +76,7 @@ function displayPrograms(){
 function dynamicForm(programObj) {
   const form = document.createElement('form')
 
-  form.setAttribute('class', 'addCharacter')
+  form.setAttribute('id', 'addCharacter')
   const label = document.createElement('label')
   label.innerText = 'Add Character Name'
 
